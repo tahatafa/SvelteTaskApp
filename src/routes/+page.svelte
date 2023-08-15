@@ -1,5 +1,5 @@
 <script>
-    import { getTasks, addTaskToDatabase } from "$lib/firebase";
+    import { getTasks, addTaskToDatabase, delTask } from "$lib/firebase";
     import { onMount } from "svelte";
     import { updateTask } from "$lib/firebase";
     let tasks = [];
@@ -41,13 +41,15 @@
 
 <ul>
     {#each tasks as task}
-        <li on:click|stopPropagation={clickTask(task)}>
+        <li>
             <label for={task.name}>{task.name}</label>
             <input
                 type="checkbox"
                 id={task.name}
                 bind:checked={task.finished}
+                on:click|stopPropagation={clickTask(task)}
             />
+            <span style="cursor:pointer" on:click={delTask(task)}>x</span>
         </li>
     {/each}
 </ul>

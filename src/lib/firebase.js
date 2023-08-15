@@ -1,6 +1,6 @@
 // place files you want to import through the `$lib` alias in this folder.
 import { initializeApp } from 'firebase/app';
-import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc } from 'firebase/firestore/lite';
+import { getFirestore, collection, doc, getDoc, getDocs, addDoc, updateDoc, deleteDoc } from 'firebase/firestore/lite';
 
 // TODO: Replace the following with your app's Firebase project configuration
 const firebaseConfig = {
@@ -36,4 +36,9 @@ export async function addTaskToDatabase(task) {
 export async function updateTask(task) {
     const docRef = doc(db, `tasks/${task.id}`)
     const taskRef = await updateDoc(docRef, task)
+}
+
+export async function delTask(task) {
+    const docRef = doc(db, `tasks/${task.id}`)
+    await deleteDoc(docRef)
 }
